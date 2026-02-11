@@ -127,9 +127,6 @@ func (r *ResolverContext) RepliesResolver(p graphql.ResolveParams) (interface{},
 		return nil, nil
 	}
 
-	// Для рекурсивного построения дерева
-	// В реальности нужно получать все комментарии и фильтровать
-	// Но мы сделаем проще - вернем уже готовое поле Replies
 	return comment.Replies, nil
 }
 

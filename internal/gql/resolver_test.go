@@ -9,7 +9,7 @@ import (
 // правильно обрабатывает пустой список комментариев
 // Ожидаемый результат: пустой массив []
 func TestBuildCommentTree_Empty(t *testing.T) {
-	// Создаем резолвер с in-memory хранилищем (оно не нужно для теста, но требуется структурой)
+	// Создаем резолвер с in-memory хранилищем
 	resolver := &ResolverContext{
 		Storage: storage.NewMemoryStorage(),
 	}

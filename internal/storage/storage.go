@@ -2,8 +2,8 @@ package storage
 
 import "graphql-comments/internal/models"
 
-// Storage - это интерфейс, который определяет все методы,
-// которые должно поддерживать наше хранилище (in-memory или postgres)
+// Storage - определяет все методы,
+// поддерживает оба хранилища (in-memory или postgres)
 type Storage interface {
 	// Методы для работы с постами
 	CreatePost(post *models.Post) error
