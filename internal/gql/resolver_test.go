@@ -6,8 +6,7 @@ import (
 	"testing"
 )
 
-// правильно обрабатывает пустой список комментариев
-// Ожидаемый результат: пустой массив []
+
 func TestBuildCommentTree_Empty(t *testing.T) {
 	// Создаем резолвер с in-memory хранилищем
 	resolver := &ResolverContext{
@@ -48,12 +47,7 @@ func TestBuildCommentTree_RootComments(t *testing.T) {
 	}
 }
 
-// TestBuildCommentTree_WithReplies - проверяет правильность построения иерархии
-// Создает структуру:
-// comment_1 (корневой)
-//
-//	└── comment_2 (ответ)
-//	     └── comment_3 (ответ на ответ)
+
 func TestBuildCommentTree_WithReplies(t *testing.T) {
 	resolver := &ResolverContext{
 		Storage: storage.NewMemoryStorage(),
@@ -102,14 +96,14 @@ func TestBuildCommentTree_BrokenParent(t *testing.T) {
 		{
 			ID:       "comment_1",
 			PostID:   "post_1",
-			ParentID: &brokenParentID, // Этого родителя не существует!
+			ParentID: &brokenParentID,
 			Content:  "Сирота",
 			Replies:  []*models.Comment{},
 		},
 		{
 			ID:      "comment_2",
 			PostID:  "post_1",
-			Content: "Нормальный корневой", // Обычный корневой комментарий
+			Content: "Нормальный корневой", 
 			Replies: []*models.Comment{},
 		},
 	}
