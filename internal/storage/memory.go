@@ -23,8 +23,8 @@ func NewMemoryStorage() *MemoryStorage {
 
 // CreatePost создает новый пост
 func (s *MemoryStorage) CreatePost(post *models.Post) error {
-	s.mu.Lock()         // Блокируем для записи
-	defer s.mu.Unlock() // Разблокируем при выходе из функции
+	s.mu.Lock()        
+	defer s.mu.Unlock() 
 
 	// Проверяем, существует ли уже пост с таким ID
 	if _, exists := s.posts[post.ID]; exists {
@@ -43,8 +43,8 @@ func (s *MemoryStorage) CreatePost(post *models.Post) error {
 
 // GetPost возвращает пост по ID
 func (s *MemoryStorage) GetPost(id string) (*models.Post, error) {
-	s.mu.RLock()         // Блокируем для чтения
-	defer s.mu.RUnlock() // Разблокируем при выходе
+	s.mu.RLock()        
+	defer s.mu.RUnlock() 
 
 	post, exists := s.posts[id]
 	if !exists {
