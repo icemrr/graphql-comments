@@ -8,9 +8,9 @@ import (
 
 // MemoryStorage - реализация Storage, которая хранит данные в памяти
 type MemoryStorage struct {
-	mu       sync.RWMutex               // Защита от одновременного доступа
-	posts    map[string]*models.Post    // Мапа постов: ID -> Post
-	comments map[string]*models.Comment // Мапа комментариев: ID -> Comment
+	mu       sync.RWMutex               
+	posts    map[string]*models.Post    
+	comments map[string]*models.Comment 
 }
 
 // NewMemoryStorage создает новый экземпляр MemoryStorage
@@ -26,12 +26,12 @@ func (s *MemoryStorage) CreatePost(post *models.Post) error {
 	s.mu.Lock()        
 	defer s.mu.Unlock() 
 
-	// Проверяем, существует ли уже пост с таким ID
+	// Проверяем, существует ли уже пост
 	if _, exists := s.posts[post.ID]; exists {
 		return errors.New("пост уже существует")
 	}
 
-	// Инициализируем Comments слайс, если он nil
+	// Инициализируем Comments слайс
 	if post.Comments == nil {
 		post.Comments = []*models.Comment{}
 	}
@@ -51,7 +51,7 @@ func (s *MemoryStorage) GetPost(id string) (*models.Post, error) {
 		return nil, errors.New("пост не найден")
 	}
 
-	// Создаем копию поста, чтобы избежать гонок данных
+	// Создаем копию поста
 	// и инициализируем Comments если нужно
 	postCopy := *post
 	if postCopy.Comments == nil {
@@ -171,7 +171,7 @@ func (s *MemoryStorage) GetCommentsByPostID(postID string) ([]*models.Comment, e
 	return comments, nil
 }
 
-// DeleteComment удаляет комментарий по ID и все его ответы (рекурсивно)
+// DeleteComment удаляет комментарий по ID и все его ответы рекурсивно
 func (s *MemoryStorage) DeleteComment(id string) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
